@@ -137,4 +137,36 @@
       console.error("Timeline loading error:", error);
       showError();
     });
+  const loadEpisodes = () => {
+  fetch(`${DATA_URL}?v=${Date.now()}`, { cache: "no-store" })
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      if (!data || !Array.isArray(data.episodes)) throw new Error("Invalid JSON structure");
+
+      episodes = data.episodes.filter(item =>
+        item &&
+        typeof item.title === "string" &&
+        item.title.trim() &&
+        typeof item.date === "string" &&
+        parseDate(item.date) &&
+        ["open", "closed"].includes(item.status) &&
+        (item.url === undefined || typeof item.url === "string")
+      );
+
+      updateStats(episodes);
+      render();
+      document.getElementById("updated-at").textContent =
+        data.updatedAt ? `ОБНОВЛЕНО: ${data.updatedAt}` : "ДАННЫЕ ИЗ JSON";
+    })
+    .catch(error => {
+      console.error("Timeline loading error:", error);
+      showError();
+    });
+};
+
+loadEpisodes();
+setInterval(loadEpisodes, 30000);
 })();
