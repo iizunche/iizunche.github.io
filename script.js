@@ -18,33 +18,43 @@
   });
 
   function parseDate(value) {
-    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
-    if (!match) return null;
+  if (!value) return null;
 
-    const date = new Date(
-      Number(match[1]),
-      Number(match[2]) - 1,
-      Number(match[3])
-    );
+  const input = String(value).trim();
 
-    if (
-      date.getFullYear() !== Number(match[1]) ||
-      date.getMonth() !== Number(match[2]) - 1 ||
-      date.getDate() !== Number(match[3])
-    ) return null;
+  let year, month, day;
 
-    return date;
+  // YYYY-MM-DD, YYYY/MM/DD, YYYY-MM
+  let match = input.match(/^(\d{4})[-/.](\d{1,2})(?:[-/.](\d{1,2}))?$/);
+
+  if (match) {
+    year = Number(match[1]);
+    month = Number(match[2]);
+    day = match[3] === undefined ? 1 : Number(match[3]);
+  } else {
+    // DD.MM.YYYY, DD/MM/YYYY, DD-MM-YYYY
+    match = input.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+
+    if (match) {
+      day = Number(match[1]);
+      month = Number(match[2]);
+      year = Number(match[3]);
+    } else {
+      // Последняя попытка — стандартный парсер JavaScript.
+      const timestamp = Date.parse(input);
+
+      if (Number.isNaN(timestamp)) return null;
+
+      const parsed = new Date(timestamp);
+
+      return new Date(
+        parsed.getFullYear(),
+        parsed.getMonth(),
+        parsed.getDate()
+      );
+    }
   }
 
-  function updateStats(items) {
-    const open = items.filter(item => item.status === "open").length;
-    const closed = items.filter(item => item.status === "closed").length;
-
-    document.getElementById("total-count").textContent = items.length;
-    document.getElementById("all-count").textContent = items.length;
-    document.getElementById("open-count").textContent = open;
-    document.getElementById("closed-count").textContent = closed;
-  }
 
   function createCard(item) {
     const card = document.createElement(item.url ? "a" : "article");
