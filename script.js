@@ -1,4 +1,3 @@
-```javascript
 (() => {
   "use strict";
 
@@ -448,4 +447,3 @@
   window.setInterval(loadEpisodes, REFRESH_INTERVAL);
 
 })();
-```
