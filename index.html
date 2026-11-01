@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Хронология эпизодов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="timeline">
+    <header class="timeline__header">
+      <div>
+        <p class="eyebrow">АРХИВ ИСТОРИЙ</p>
+        <h1>Хронология эпизодов</h1>
+        <p class="intro">Все события — в одном месте.</p>
+      </div>
+      <div class="total" aria-label="Всего эпизодов">
+        <span class="total__number" id="total-count">—</span>
+        <span class="total__label">эпизодов</span>
+      </div>
+    </header>
+
+    <section class="summary" aria-label="Статистика эпизодов">
+      <div class="summary__item"><span class="summary__dot summary__dot--all"></span><span>Всего</span><strong id="all-count">0</strong></div>
+      <div class="summary__item"><span class="summary__dot summary__dot--open"></span><span>Открытые</span><strong id="open-count">0</strong></div>
+      <div class="summary__item"><span class="summary__dot summary__dot--closed"></span><span>Закрытые</span><strong id="closed-count">0</strong></div>
+    </section>
+
+    <nav class="filters" aria-label="Фильтр эпизодов">
+      <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">Все эпизоды</button>
+      <button class="filter" type="button" data-filter="open" aria-pressed="false">Открытые</button>
+      <button class="filter" type="button" data-filter="closed" aria-pressed="false">Закрытые</button>
+    </nav>
+
+    <section id="episodes" class="episodes" aria-live="polite">
+      <p class="state">Загружаем хронологию…</p>
+    </section>
+
+    <footer class="timeline__footer">
+      <span>ХРОНОЛОГИЯ</span>
+      <span id="updated-at"></span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

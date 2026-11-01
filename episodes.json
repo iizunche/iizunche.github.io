@@ -1,0 +1,23 @@
+{
+  "updatedAt": "01.11.2026",
+  "episodes": [
+    {
+      "title": "Название открытого эпизода",
+      "date": "2026-10-28",
+      "url": "https://your-forum.example.com/thread-123.html",
+      "status": "open"
+    },
+    {
+      "title": "Вечер на старой улице",
+      "date": "2026-10-21",
+      "url": "https://your-forum.example.com/thread-124.html",
+      "status": "closed"
+    },
+    {
+      "title": "Случайная встреча",
+      "date": "2026-10-15",
+      "url": "https://your-forum.example.com/thread-125.html",
+      "status": "open"
+    }
+  ]
+}

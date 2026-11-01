@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+:root {
+  --ink: #292923;
+  --muted: #89877e;
+  --line: #e8e5dc;
+  --paper: #fbfaf7;
+  --card: #fffefa;
+  --accent: #8b7658;
+  --open: #718b70;
+  --closed: #99968d;
+}
+
+* { box-sizing: border-box; }
+
+html { background: transparent; }
+
+body {
+  margin: 0;
+  padding: 22px;
+  color: var(--ink);
+  background: transparent;
+  font-family: "DM Sans", Arial, sans-serif;
+  font-size: 14px;
+}
+
+.timeline {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 30px 32px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.timeline__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+.intro {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-bottom: 2px;
+}
+
+.total__number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.total__label {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.summary {
+  display: flex;
+  gap: 28px;
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.summary__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.summary__item strong {
+  margin-left: 2px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.summary__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.summary__dot--open { background: var(--open); }
+.summary__dot--closed { background: var(--closed); }
+
+.filters {
+  display: flex;
+  gap: 7px;
+  padding: 20px 0 17px;
+}
+
+.filter {
+  padding: 7px 13px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.filter:hover { color: var(--ink); }
+
+.filter.is-active {
+  border-color: var(--line);
+  color: var(--ink);
+  background: #fffefa;
+}
+
+.episodes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.episode-card {
+  display: flex;
+  min-width: 0;
+  min-height: 116px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 17px 18px 15px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+
+a.episode-card:hover {
+  transform: translateY(-2px);
+  border-color: #cfc6b5;
+  box-shadow: 0 5px 16px rgba(54, 47, 34, .05);
+}
+
+.episode-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.episode-card__date {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
+.episode-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--open);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.episode-card__status::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.episode-card--closed .episode-card__status { color: var(--closed); }
+
+.episode-card__title {
+  overflow-wrap: anywhere;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.episode-card__arrow {
+  display: inline-block;
+  margin-left: 5px;
+  color: #b0a48f;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  transition: transform .15s ease;
+}
+
+a.episode-card:hover .episode-card__arrow { transform: translate(2px, -2px); }
+
+.state {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 34px 15px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+.state--error { color: #9b5c50; }
+
+.timeline__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 22px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  color: #aaa69b;
+  font-size: 9px;
+  letter-spacing: .14em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
