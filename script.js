@@ -1,3 +1,4 @@
+
 (() => {
   "use strict";
 
@@ -16,12 +17,6 @@
   let activeFilter = "all";
   let isFirstLoad = true;
   let isLoading = false;
-
-  const dateFormatter = new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
 
   // Названия месяцев на русском и английском.
   const months = {
@@ -133,13 +128,12 @@
       );
     }
 
-    // Форматы с текстовыми названиями месяцев.
     const normalized = input
       .toLowerCase()
       .replace(/,/g, "")
       .replace(/\s+/g, " ");
 
-    // Например: 15 августа 2026 или 15 August 2026.
+    // 15 августа 2026 или 15 August 2026.
     match = normalized.match(
       /^(\d{1,2})\s+([а-яёa-z]+)\s+(\d{4})$/i
     );
@@ -152,7 +146,7 @@
       );
     }
 
-    // Например: август 2026 или August 2026.
+    // август 2026 или August 2026.
     match = normalized.match(
       /^([а-яёa-z]+)\s+(\d{4})$/i
     );
@@ -165,7 +159,7 @@
       );
     }
 
-    // Например: August 15, 2026.
+    // August 15, 2026.
     match = normalized.match(
       /^([a-z]+)\s+(\d{1,2})\s+(\d{4})$/i
     );
@@ -194,13 +188,9 @@
     return null;
   }
 
-  // Отображение даты.
+  // Отображение даты без изменения исходного формата.
   function formatDate(value) {
-    const date = parseDate(value);
-
-    return date
-      ? dateFormatter.format(date)
-      : String(value);
+    return String(value ?? "");
   }
 
   // Обновление статистики.
@@ -293,7 +283,6 @@
       )
       .slice()
       .sort((a, b) => {
-        // Открытые эпизоды всегда выше закрытых.
         const statusOrder =
           (a.status === "open" ? 0 : 1) -
           (b.status === "open" ? 0 : 1);
@@ -305,13 +294,10 @@
         const dateA = parseDate(a.date);
         const dateB = parseDate(b.date);
 
-        // Даты, которые не удалось распознать,
-        // помещаем после распознанных.
         if (dateA && !dateB) return -1;
         if (!dateA && dateB) return 1;
         if (!dateA && !dateB) return 0;
 
-        // Сначала самые новые.
         return dateB.getTime() - dateA.getTime();
       });
 
@@ -399,10 +385,8 @@
       }
 
       const data = await response.json();
-
       const loadedEpisodes = validateEpisodes(data);
 
-      // Обновляем данные только после успешной загрузки.
       episodes = loadedEpisodes;
 
       updateStats(episodes);
@@ -461,9 +445,6 @@
   loadEpisodes();
 
   // Автоматическое обновление каждые 30 секунд.
-  window.setInterval(
-    loadEpisodes,
-    REFRESH_INTERVAL
-  );
+  window.setInterval(loadEpisodes, REFRESH_INTERVAL);
 
 })();
